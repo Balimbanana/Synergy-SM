@@ -6,6 +6,15 @@ ep1_citadel_02b
 		edit {classname "func_areaportal" values {targetname "syn_DisabledPortal" StartOpen "1"} }
 		edit {classname "func_areaportalwindow" values {targetname "syn_DisabledPortalWindow" FadeStartDist "1000" FadeDist "1500"} }
 
+		create {classname "logic_auto"
+			values
+			{
+				spawnflags "1"
+				OnMapSpawn "train_initial_start_trigger,AddOutput,OnTrigger syn_spawn_manager:SetCheckPoint:syn_spawnpoint_01:0:-1,0,-1"
+				OnMapSpawn "elevator_powersocket_2_trigger_1,AddOutput,OnTrigger syn_firsthurt:kill::0:-1,0,-1"
+				OnMapSpawn "stalker,AddOutput,OnDeath syn_secondhurt:kill::0:-1,0,-1"
+			}
+		}
 //Prevent Backtracking
 		create {classname "trigger_push" origin "0 -56 0"
 			values {model "*23"
@@ -27,6 +36,8 @@ ep1_citadel_02b
 //Intro
 		create {classname "info_player_coop" origin "1023.59 4639.06 2496.03"
 			values {angles "0 270 0" targetname "syn_spawn_player_1"} }
+			
+		create {classname "info_player_coop" origin "3275 4620 2560" values {angles "0 0 0" targetname "syn_spawnpoint_01" StartDisabled "1" parentname "citadel_train_lift01_1"} }
 //Elevator
 		create {classname "info_player_coop" origin "3585.37 4645.98 -6680"
 			values {angles "0 0 0" targetname "syn_spawn_player_2" StartDisabled "1"} }
@@ -50,16 +61,6 @@ ep1_citadel_02b
 		delete {classname "trigger_multiple" origin "5545.25 4642.47 -6606"}
 		edit {targetname "airlock_exit_counter_1" values {max "1"} }//2
 
-//Trav|Edt - teleport players behind alyx scene
-		create {classname "logic_auto"
-			values {spawnflags "1"
-				OnMapSpawn ",,,0,-1"} }
-
-		create {classname "point_teleport"
-			origin ""
-			values {targetname "syn_teleport_alyx"
-				angles "0 180 0"
-				target "alyx"} }
 
 //Trav|Edt - allow everyone to see alyxface
 		edit {targetname "blackout_viewcontroller" values {spawnflags "156"} }
@@ -218,6 +219,8 @@ ep1_citadel_02b
 //		}
 
 //Trav|Edt - Functionality check
+		create {classname "trigger_hurt" origin "3255 4635 -875" values {targetname "syn_firsthurt" edt_mins "-200 -200 -20" edt_maxs "200 200 20" spawnflags "1" damagetype "32" damage "999" damagecap "999"} }
+		create {classname "trigger_hurt" origin "3255 4635 -3800" values {targetname "syn_secondhurt" edt_mins "-200 -200 -20" edt_maxs "200 200 20" spawnflags "1" damagetype "32" damage "999" damagecap "999"} }
 		create {classname "logic_relay" values {targetname "trav_functionality_ep1_citadel_02b"} }
 	}
 }
