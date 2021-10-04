@@ -157,6 +157,8 @@ ep2_outland_03
 		
 		edit {targetname "cave_entry_gate" values {overridescript "mass,5000"} }
 		edit {targetname "cave_gate" values {overridescript "mass,5000"} }
+		
+		create {classname "prop_physics" origin "4032 -8790 -550" values {model "models/props_c17/oildrum001.mdl"} }
 
 		// do not let players get stuck down below
 		// activate a checkpoint here
